@@ -5,6 +5,8 @@ import asyncio
 import random
 from flask import Flask
 from threading import Thread
+import time
+from datetime import datetime
 
 app = Flask('')
 
@@ -56,14 +58,68 @@ async def auto_reply(event):
 
 💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟''')
 
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.ping"))
+async def ping(event):
+    start = time.time()
+    msg = await event.edit("Pinging...")
+    end = time.time()
+    await msg.edit(f"Pong! {round((end-start)*1000)} ms")
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.id"))
+async def get_id(event):
+    await event.edit(f"Chat ID: `{event.chat_id}`")
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.time"))
+async def time_cmd(event):
+    now = datetime.now().strftime("%H:%M:%S")
+    await event.edit(f"Current Time: {now}")
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.userinfo"))
+async def userinfo(event):
+    user = await event.get_sender()
+    await event.edit(
+        f"Name: {user.first_name}\nID: {user.id}"
+    )
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.del"))
+async def delete(event):
+    if event.reply_to_msg_id:
+        msg = await event.get_reply_message()
+        await msg.delete()
+        await event.delete()
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.help"))
+async def help_cmd(event):
+    await event.edit("""
+Commands:
+coming soon...
+""")
+        
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.spam"))
+async def spam(event):
+    args = event.raw_text.split(maxsplit=2)
+    count = int(args[1])
+    text = args[2]
+
+    await event.delete()
+    for _ in range(count):
+        await client.send_message(event.chat_id, text)
+
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.b"))
 async def boost_msg(event):
     await event.edit("boost kardo ise t.me/swapping_wifegf?boost ❤️")
 
-@client.on(events.NewMessage(outgoing=True, pattern=r"\.alive"))
-async def alive_msg(event):
-    await event.edit("I'm alive my queen.. ❤️")
+#@client.on(events.NewMessage(outgoing=True, pattern=r"\.alive"))
+#async def alive_msg(event):
+ #   await event.edit("I'm alive my queen.. ❤️")
 
+start_time = time.time()
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.alive"))
+async def alive(event):
+    uptime = int(time.time() - start_time)
+    await event.edit(f"⚡ Alive\nUptime: {uptime} sec")
+    
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.pay"))
 async def send_qr(event):
     await client.send_file(
