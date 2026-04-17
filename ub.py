@@ -28,12 +28,19 @@ session = "1BVtsOIQBu8ROMVWUG0AF2rZU4triGdflYo28zN5YimAjaCVFmNkiIhSemhNc7YSSqzQY
 
 client = TelegramClient(StringSession(session), api_id, api_hash)
 
+replied_users = set()
+
 @client.on(events.NewMessage(incoming=True))
-async def auto_reply(event):
+async def auto_price(event):
     if event.is_private and not event.out:
-        if event.raw_text.lower() in ["hi", "hello", "hy", "hey"]:
+        user_id = event.sender_id
+
+        if user_id not in replied_users:
+            replied_users.add(user_id)
+
             async with client.action(event.chat_id, 'typing'):
-                await asyncio.sleep(random.randint(2,4))
+                await asyncio.sleep(2)
+
             await event.reply('''🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
 
        🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
@@ -57,6 +64,14 @@ async def auto_reply(event):
 🍒 𝗦𝗤𝗨𝗜𝗥𝗧 𝗦𝗛𝗢𝗪 - 𝟭𝟭𝟬𝟬 𝗥𝗦 💦
 
 💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟''')
+
+@client.on(events.NewMessage(incoming=True))
+async def auto_reply(event):
+    if event.is_private and not event.out:
+        if event.raw_text.lower() in ["hi", "hello", "hy", "hey"]:
+            async with client.action(event.chat_id, 'typing'):
+                await asyncio.sleep(random.randint(2,4))
+            await event.reply(''' wait.. 2 min me aayi..''')
 
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.ping"))
 async def ping(event):
