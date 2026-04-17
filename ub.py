@@ -129,7 +129,23 @@ start_time = time.time()
 async def alive(event):
     uptime = int(time.time() - start_time)
     await event.edit(f"⚡ 𝙕𝙄𝙉𝘿𝘼 𝙃𝙐...\nUptime: {uptime} sec")
-    
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.love"))
+async def heart(event):
+    frames = [
+        "❤️",
+        "🧡",
+        "💛",
+        "💚",
+        "💙",
+        "💜",
+        "❤️"
+    ]
+
+    for frame in frames:
+        await event.edit(frame)
+        await asyncio.sleep(0.4)
+
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.pay"))
 async def send_qr(event):
     await client.send_file(
