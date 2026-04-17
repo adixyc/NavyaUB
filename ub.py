@@ -73,6 +73,14 @@ async def auto_reply(event):
                 await asyncio.sleep(random.randint(2,4))
             await event.reply(''' wait.. 2 min me aayi..''')
 
+@client.on(events.NewMessage(incoming=True))
+async def auto_repl(event):
+    if event.is_private and not event.out:
+        if event.raw_text.lower() in ["demo"]:
+            async with client.action(event.chat_id, 'typing'):
+                await asyncio.sleep(random.randint(2,4))
+            await event.reply(''' demo paid hai babe.. 100rs only''')
+
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.ping"))
 async def ping(event):
     start = time.time()
