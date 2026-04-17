@@ -31,7 +31,7 @@ client = TelegramClient(StringSession(session), api_id, api_hash)
 @client.on(events.NewMessage(incoming=True))
 async def auto_reply(event):
     if event.is_private and not event.out:
-        if event.raw_text.lower() in ["hi", "hello"]:
+        if event.raw_text.lower() in ["hi", "hello", "hy", "hey"]:
             async with client.action(event.chat_id, 'typing'):
                 await asyncio.sleep(random.randint(2,4))
             await event.reply('''🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
