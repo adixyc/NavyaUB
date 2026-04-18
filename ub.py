@@ -86,7 +86,7 @@ async def auto_price(event):
 @client.on(events.NewMessage(incoming=True))
 async def auto_reply(event):
     if event.is_private and not event.out:
-        if event.raw_text.lower() in ["hi", "hello", "hy", "hey"]:
+        if event.raw_text.lower() in ["h00000i", "hel000000lo", "h000009y", "he0000009y"]:
             async with client.action(event.chat_id, 'typing'):
                 await asyncio.sleep(random.randint(2,4))
             await event.reply(''' wait.. 2 min me aayi ❤️''')
