@@ -60,7 +60,8 @@ async def welcome_new_member(event):
                 TARGET_GROUP_ID,
                 f"𝗪𝗘𝗟𝗖𝗢𝗠𝗘 {user.first_name} ❤️\n\n𝗠𝗘𝗦𝗦𝗔𝗚𝗘 𝗠𝗘 𝗙𝗢𝗥 𝗙𝗨𝗡 & 𝗖𝗔𝗠 𝗦𝗛𝗢𝗪. 𝗠𝗨𝗔𝗔𝗔𝗛𝗛 💋"
             )
-        
+    
+
 @client.on(events.NewMessage(incoming=True))
 async def auto_price(event):
     if event.is_private and not event.out:
@@ -69,10 +70,8 @@ async def auto_price(event):
         if user_id not in replied_users:
             replied_users.add(user_id)
 
-            async with client.action(event.chat_id, 'typing'):
-                await asyncio.sleep(2)
-
-            await event.reply('''🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
+            await asyncio.sleep(2)
+            await event.respond('''🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
 
        🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
 
