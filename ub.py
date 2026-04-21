@@ -54,15 +54,6 @@ async def fake_typing():
 
 # ---------------- AUTO WELCOME ---------------- #
 
-@client.on(events.ChatAction())
-async def welcome_new_member(event):
-    if event.chat_id == TARGET_GROUP_ID:
-        if event.user_joined or event.user_added or event.user_approved:
-            user = await event.get_user()
-            await client.send_message(
-                TARGET_GROUP_ID,
-                f"{user.first_name} ❤️\n𝗠𝗘𝗦𝗦𝗔𝗚𝗘 𝗠𝗘 𝗙𝗢𝗥 𝗙𝗨𝗡. 𝗠𝗨𝗔𝗔𝗔𝗛𝗛 💋"
-            )
 
 # ---------------- AUTO PRICE ---------------- #
 
@@ -111,6 +102,17 @@ async def send_price_list(event):
     await event.delete()
 
 #------
+
+@client.on(events.ChatAction)
+async def welcome_new_user(event):
+    if event.users:
+        for user in await event.get_users():
+            await event.reply(
+                f"[{user.first_name}](tg://user?id={user.id}) D'M me for fun 💋",
+                parse_mode='md'
+            )
+
+#-----
 
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.rl"))
 async def price_list(event):
