@@ -11,6 +11,9 @@ from telethon.sessions import StringSession
 from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
 from openai import OpenAI
 
+from telethon.tl.types import MessageEntityMentionName
+
+
 # ---------------- KEEP ALIVE ---------------- #
 
 app = Flask('')
@@ -103,15 +106,27 @@ async def send_price_list(event):
 
 #------
 
-@client.on(events.ChatAction)
+@client.on(events.ChatAction(chats=TARGET_GROUP_ID))
 async def welcome_new_user(event):
     if event.users:
-        for user in await event.get_users():
-            await event.reply(
-                f"[{user.first_name}](tg://user?id={user.id}) D'M me for fun 💋",
-                parse_mode='md'
+        users = await event.get_users()
+
+        for user in users:
+            await asyncio.sleep(2)
+
+            message = f" {user.first_name} DM ME FOR FUN BABY 💋"
+
+            entity = MessageEntityMentionName(
+                offset=8,
+                length=len(user.first_name),
+                user_id=user.id
             )
 
+            await client.send_message(
+                GROUP_ID,
+                message,
+                formatting_entities=[entity]
+            )
 #-----
 
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.rl"))
