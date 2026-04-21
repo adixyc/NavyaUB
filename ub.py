@@ -140,6 +140,21 @@ async def ping(event):
     end = time.time()
     await msg.edit(f"𝗣𝗢𝗡𝗚! {round((end-start)*1000)} ms")
 
+async def fake_typing():
+    while True:
+        try:
+            async with client.action(group_id, 'typing'):
+                await asyncio.sleep(4)  # show typing for 4 sec
+        except Exception as e:
+            print("Error:", e)
+            await asyncio.sleep(10)
+
+async def main():
+    await fake_typing()
+
+with client:
+    client.loop.run_until_complete(main())
+
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.id"))
 async def get_id(event):
     await event.edit(f"𝘾𝙃𝘼𝙏 𝙄𝘿: `{event.chat_id}`")
