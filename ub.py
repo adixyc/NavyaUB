@@ -110,6 +110,33 @@ async def send_price_list(event):
     )
     await event.delete()
 
+#------
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.rl"))
+async def price_list(event):
+    text = """
+🌸 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🌸
+✅ 100% ᴛʀᴜꜱᴛᴇᴅ & ᴠᴇʀɪꜰɪᴇᴅ ᴍᴏᴅᴇʟ
+━━━━━━━━━━━━━━━
+💬 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧
+• 10 ᴍɪɴᴜᴛᴇꜱ → ₹350
+• 20 ᴍɪɴᴜᴛᴇꜱ → ₹740
+━━━━━━━━━━━━━━━
+📞 𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟
+• 5 ᴍɪɴᴜᴛᴇꜱ → ₹220
+• 10 ᴍɪɴᴜᴛᴇꜱ → ₹450
+• 18 ᴍɪɴᴜᴛᴇꜱ → ₹890
+━━━━━━━━━━━━━━━
+🎥 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟
+• 5 ᴍɪɴᴜᴛᴇꜱ → ₹500
+• 10 ᴍɪɴᴜᴛᴇꜱ → ₹990
+• 20 ᴍɪɴᴜᴛᴇꜱ → ₹1900
+
+✅ Send payment screenshot after payment and enjoy the service.
+"""
+    await event.edit(text)
+
+#-------
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.alive"))
 async def alive(event):
     uptime = int(time.time() - start_time)
