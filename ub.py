@@ -55,9 +55,29 @@ async def fake_typing():
             print("Typing Error:", e)
             await asyncio.sleep(15)
 
-# ---------------- AUTO WELCOME ---------------- #
+# ---------------- AUTO WELCOME ---------------- 
 
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.all"))
+async def mention_all(event):
+    chat = await event.get_chat()
+    users = []
 
+    async for user in client.iter_participants(chat):
+        if not user.bot:
+            users.append(f"[{user.first_name}](tg://user?id={user.id})")
+
+    message = ""
+    for user in users:
+        if len(message) + len(user) + 1 > 4000:
+            await event.respond(message, parse_mode="md")
+            message = ""
+        message += user + " "
+
+    if message:
+        await event.respond(message, parse_mode="md")
+
+    await event.delete()
+    
 # ---------------- AUTO PRICE ---------------- #
 
 @client.on(events.NewMessage(incoming=True))
@@ -69,28 +89,15 @@ async def auto_price(event):
             replied_users.add(user_id)
             await asyncio.sleep(2)
 
-            await event.respond("""🌸 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🌸
-✅ 100% ᴛʀᴜꜱᴛᴇᴅ & ᴠᴇʀɪꜰɪᴇᴅ ᴍᴏᴅᴇʟ
-━━━━━━━━━━━━━━━
-💬 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧
-• 10 ᴍɪɴᴜᴛᴇꜱ → ₹350
-• 20 ᴍɪɴᴜᴛᴇꜱ → ₹740
-━━━━━━━━━━━━━━━
-📞 𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟
-• 5 ᴍɪɴᴜᴛᴇꜱ → ₹220
-• 10 ᴍɪɴᴜᴛᴇꜱ → ₹450
-• 18 ᴍɪɴᴜᴛᴇꜱ → ₹890
-━━━━━━━━━━━━━━━
-🎥 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟
-• 5 ᴍɪɴᴜᴛᴇꜱ → ₹500
-• 10 ᴍɪɴᴜᴛᴇꜱ → ₹990
-• 20 ᴍɪɴᴜᴛᴇꜱ → ₹1900
+            await event.respond(""" Hi Babe! Are you here for paid cam show or normal chat?
+
+            Please leave your reply and wait for my response.
 """)
 # ----------
 
 
 PRICE_TEXT = """
-Scan QR and send screenshot after payment.
+Send screenshot after payment.
 """
 
 QR_IMAGE = "qr.jpg"  
@@ -105,6 +112,36 @@ async def send_price_list(event):
     await event.delete()
 
 #------
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.fl"))
+async def price_list(event):
+    text = """
+    🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
+
+       🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 100 𝗥𝗦 💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 250 𝗥𝗦 💦
+
+       🎀 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟 💘
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 3𝟬𝟬 𝗥𝗦  💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 6𝟬𝟬 𝗥𝗦 💦
+
+       🌟 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧 👄
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 1𝟬𝟬 𝗥𝗦 💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 200 𝗥𝗦 💦
+
+       🎀 𝗦𝗣𝗘𝗖𝗜𝗔𝗟 𝗦𝗛𝗢𝗪 💘
+
+🍒 𝗦𝗔𝗥𝗘𝗘 𝗦𝗛𝗢𝗪 - 𝟭𝟮𝟬𝟬 𝗥𝗦 💦
+🍒 𝗦𝗤𝗨𝗜𝗥𝗧 𝗦𝗛𝗢𝗪 - 𝟭𝟭𝟬𝟬 𝗥𝗦 💦
+
+💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
+"""
+    await event.edit(text)
+    
 
 @client.on(events.ChatAction(chats=TARGET_GROUP_ID))
 async def welcome_new_user(event):
@@ -129,27 +166,40 @@ async def welcome_new_user(event):
             )
 #-----
 
+@client.on(events.NewMessage(outgoing=True, pattern=r"\.dm"))
+async def price_list(event):
+    text = """
+DM @niximia to buy Telegram/WhatsApp accounts.
+"""
+    await event.edit(text)
+
+
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.rl"))
 async def price_list(event):
     text = """
-🌸 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🌸
-✅ 100% ᴛʀᴜꜱᴛᴇᴅ & ᴠᴇʀɪꜰɪᴇᴅ ᴍᴏᴅᴇʟ
-━━━━━━━━━━━━━━━
-💬 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧
-• 10 ᴍɪɴᴜᴛᴇꜱ → ₹350
-• 20 ᴍɪɴᴜᴛᴇꜱ → ₹740
-━━━━━━━━━━━━━━━
-📞 𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟
-• 5 ᴍɪɴᴜᴛᴇꜱ → ₹220
-• 10 ᴍɪɴᴜᴛᴇꜱ → ₹450
-• 18 ᴍɪɴᴜᴛᴇꜱ → ₹890
-━━━━━━━━━━━━━━━
-🎥 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟
-• 5 ᴍɪɴᴜᴛᴇꜱ → ₹500
-• 10 ᴍɪɴᴜᴛᴇꜱ → ₹990
-• 20 ᴍɪɴᴜᴛᴇꜱ → ₹1900
+    🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
 
-✅ Send payment screenshot after payment and enjoy the service.
+       🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 𝟮𝟬𝟬 𝗥𝗦 💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 𝟯𝟱𝟬 𝗥𝗦 💦
+
+       🎀 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟 💘
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 𝟱𝟬𝟬 𝗥𝗦  💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 𝟴𝟬𝟬 𝗥𝗦 💦
+
+       🌟 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧 👄
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 𝟮𝟬𝟬 𝗥𝗦 💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 𝟯𝟱𝟬 𝗥𝗦 💦
+
+       🎀 𝗦𝗣𝗘𝗖𝗜𝗔𝗟 𝗦𝗛𝗢𝗪 💘
+
+🍒 𝗦𝗔𝗥𝗘𝗘 𝗦𝗛𝗢𝗪 - 𝟭𝟮𝟬𝟬 𝗥𝗦 💦
+🍒 𝗦𝗤𝗨𝗜𝗥𝗧 𝗦𝗛𝗢𝗪 - 𝟭𝟭𝟬𝟬 𝗥𝗦 💦
+
+💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
 """
     await event.edit(text)
 
@@ -172,7 +222,7 @@ async def auto_proof_reply(event):
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.alive"))
 async def alive(event):
     uptime = int(time.time() - start_time)
-    await event.edit(f"⚡ Alive\nUptime: {uptime} sec")
+    await event.edit(f"💋 BaZiGaR mAiN bAzIgAr!\nUptime: {uptime} sec")
 
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.spam"))
 async def spam(event):
