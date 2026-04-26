@@ -89,9 +89,31 @@ async def auto_price(event):
             replied_users.add(user_id)
             await asyncio.sleep(2)
 
-            await event.respond(""" Hi Babe! Are you here for paid cam show or normal chat?
+            await event.respond("""    🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
 
-            Please leave your reply and wait for my response.
+       🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 100 𝗥𝗦 💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 250 𝗥𝗦 💦
+
+       🎀 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟 💘
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 3𝟬𝟬 𝗥𝗦  💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 6𝟬𝟬 𝗥𝗦 💦
+
+       🌟 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧 👄
+
+🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 1𝟬𝟬 𝗥𝗦 💦
+🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 200 𝗥𝗦 💦
+
+       🎀 𝗦𝗣𝗘𝗖𝗜𝗔𝗟 𝗦𝗛𝗢𝗪 💘
+
+🍒 𝗦𝗔𝗥𝗘𝗘 𝗦𝗛𝗢𝗪 - 𝟭𝟮𝟬𝟬 𝗥𝗦 💦
+🍒 𝗦𝗤𝗨𝗜𝗥𝗧 𝗦𝗛𝗢𝗪 - 𝟭𝟭𝟬𝟬 𝗥𝗦 💦
+
+💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
+
+VERIFIED AT @WIFE_SWAPPING_GF
 """)
 # ----------
 
