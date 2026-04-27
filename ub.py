@@ -114,7 +114,7 @@ async def auto_price(event):
 
 💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
 
-VERIFIED AT @WIFE_SWAPPING_GF
+𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @WIFE_SWAPPING_GF
 """)
 # ----------
 
@@ -140,34 +140,6 @@ async def send_price_list(event):
 
 #------
 
-@client.on(events.NewMessage(outgoing=True, pattern=r"\.fl"))
-async def price_lixst(event):
-    text = """
-    🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
-
-       🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
-
-🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 100 𝗥𝗦 💦
-🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 250 𝗥𝗦 💦
-
-       🎀 𝗩𝗜𝗗𝗘𝗢 𝗖𝗔𝗟𝗟 💘
-
-🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 3𝟬𝟬 𝗥𝗦  💦
-🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 6𝟬𝟬 𝗥𝗦 💦
-
-       🌟 𝗦𝗘𝗫 𝗖𝗛𝗔𝗧 👄
-
-🍒𝟱 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 1𝟬𝟬 𝗥𝗦 💦
-🍒𝟭𝟬 𝗠𝗜𝗡𝗨𝗧𝗘𝗦 - 200 𝗥𝗦 💦
-
-       🎀 𝗦𝗣𝗘𝗖𝗜𝗔𝗟 𝗦𝗛𝗢𝗪 💘
-
-🍒 𝗦𝗔𝗥𝗘𝗘 𝗦𝗛𝗢𝗪 - 𝟭𝟮𝟬𝟬 𝗥𝗦 💦
-🍒 𝗦𝗤𝗨𝗜𝗥𝗧 𝗦𝗛𝗢𝗪 - 𝟭𝟭𝟬𝟬 𝗥𝗦 💦
-
-💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
-"""
-    await event.edit(text)
     
 
 @client.on(events.ChatAction(chats=TARGET_GROUP_ID))
