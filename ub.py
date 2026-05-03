@@ -114,7 +114,7 @@ async def auto_price(event):
 
 💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
 
-𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @WIFE_SWAPPINGLY
+𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @SWAPPINGe_WIFE
 """)
 # ----------
 
