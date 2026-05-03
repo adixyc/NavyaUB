@@ -114,16 +114,13 @@ async def auto_price(event):
 
 💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
 
-𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @SWAPPINGS_WIFES
+𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @WIFE_SWAPPINGLY
 """)
 # ----------
 
 
 PRICE_TEXT = """
-Scan the QR or Tap on the link to pay.
-
      tinyurl.com/gfnavya 
-
 Send screenshot after payment.
 """
 
