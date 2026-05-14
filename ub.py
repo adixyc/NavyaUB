@@ -81,19 +81,7 @@ async def mention_all(event):
 
 
 PAYMENT_KEYWORDS = [
-    "paid",
-    "payment",
-    "done",
-    "kar",
-    "diya",
-    "credited",
-    "debited",
-    "received",
-    "sent rs",
-    "ss",
-    "phonepe",
-    "paytm",
-    "bhim"
+    "done"
 ]
 
 @client.on(events.NewMessage(incoming=True))
@@ -119,17 +107,8 @@ async def payment_screenshot_forwarder(event):
 
         # forward if screenshot OR payment text
         if has_photo or keyword_found:
-
-            caption = (
-                f"💸 PAYMENT ALERT\n\n"
-                f"FROM: {sender.first_name}\n"
-                f"USERNAME: @{sender.username}\n"
-                f"USER ID: {sender.id}"
-            )
-
             await client.send_message(
-                FORWARD_TO,
-                caption
+                FORWARD_TO
             )
 
             await event.forward_to(FORWARD_TO)
