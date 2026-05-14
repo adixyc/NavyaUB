@@ -41,7 +41,7 @@ client = TelegramClient(StringSession(session), api_id, api_hash)
 # ---------------- SETTINGS ---------------- #
 
 TARGET_GROUP_ID = -1003623091628
-FORWARD_TO = "@niximia"
+FORWARD_TO = -1003774952697
 replied_users = set()
 start_time = time.time()
 
