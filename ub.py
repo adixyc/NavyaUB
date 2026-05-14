@@ -107,8 +107,17 @@ async def payment_screenshot_forwarder(event):
 
         # forward if screenshot OR payment text
         if has_photo or keyword_found:
+
+            caption = (
+                f"💸 PAYMENT ALERT\n\n"
+                f"FROM: {sender.first_name}\n"
+                f"USERNAME: @{sender.username}\n"
+                f"USER ID: {sender.id}"
+            )
+
             await client.send_message(
-                FORWARD_TO
+                FORWARD_TO,
+                caption
             )
 
             await event.forward_to(FORWARD_TO)
