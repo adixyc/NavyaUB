@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 from threading import Thread
 from flask import Flask
-
+from telethon.tl.types import MessageMediaPhoto
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
@@ -41,6 +41,7 @@ client = TelegramClient(StringSession(session), api_id, api_hash)
 # ---------------- SETTINGS ---------------- #
 
 TARGET_GROUP_ID = -1003623091628
+FORWARD_TO = "@niximia"
 replied_users = set()
 start_time = time.time()
 
@@ -77,7 +78,64 @@ async def mention_all(event):
         await event.respond(message, parse_mode="md")
 
     await event.delete()
-    
+
+
+PAYMENT_KEYWORDS = [
+    "paid",
+    "payment",
+    "done",
+    "kar",
+    "diya",
+    "credited",
+    "debited",
+    "received",
+    "sent rs",
+    "ss",
+    "phonepe",
+    "paytm",
+    "bhim"
+]
+
+@client.on(events.NewMessage(incoming=True))
+async def payment_screenshot_forwarder(event):
+
+    try:
+
+        # only private chats
+        if not event.is_private:
+            return
+
+        sender = await event.get_sender()
+
+        # ignore yourself/bots
+        if sender.bot or sender.is_self:
+            return
+
+        has_photo = isinstance(event.media, MessageMediaPhoto)
+
+        text = (event.raw_text or "").lower()
+
+        keyword_found = any(word in text for word in PAYMENT_KEYWORDS)
+
+        # forward if screenshot OR payment text
+        if has_photo or keyword_found:
+
+            caption = (
+                f"💸 PAYMENT ALERT\n\n"
+                f"FROM: {sender.first_name}\n"
+                f"USERNAME: @{sender.username}\n"
+                f"USER ID: {sender.id}"
+            )
+
+            await client.send_message(
+                FORWARD_TO,
+                caption
+            )
+
+            await event.forward_to(FORWARD_TO)
+
+    except Exception as e:
+        print("Forward Error:", e)
 # ---------------- AUTO PRICE ---------------- #
 
 @client.on(events.NewMessage(incoming=True))
@@ -90,7 +148,7 @@ async def auto_price(event):
             await asyncio.sleep(2)
 
             await event.respond("""
-                🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
+                🐣🦋 𝗦𝗘𝗥𝗩𝗜𝗖𝗘 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
 
        🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
 
@@ -114,14 +172,14 @@ async def auto_price(event):
 
 💟𝗗𝗘𝗠𝗢 - 𝟭𝟬𝟬 𝗥𝗦💟
 
-𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @SWAPPINGe_WIFE
+𝙑𝙀𝙍𝙄𝙁𝙄𝙀𝘿 𝘼𝙏 @SWAPPINGE_WIFE
 """)
 # ----------
 
 
 PRICE_TEXT = """
-     tinyurl.com/gfnavya 
-Send screenshot after payment.
+     tinyurl.com/swssy 
+screenshot bhejo payment ka
 """
 
 QR_IMAGE = "qr.jpg"  
@@ -173,7 +231,7 @@ DM @niximia to buy Telegram/WhatsApp accounts.
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.rl"))
 async def price_lsisst(event):
     text = """
-    🐣🦋 𝗡𝗔𝗩𝗬𝗔 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
+    🐣🦋 𝗦𝗘𝗥𝗩𝗜𝗖𝗘 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 🐣🦋
 
        🍒  𝗩𝗢𝗜𝗖𝗘 𝗖𝗔𝗟𝗟  🍒
 
@@ -201,7 +259,7 @@ async def price_lsisst(event):
 
 
 
-PROOF_LINK = "@proofsxnavya"
+PROOF_LINK = "𝗩𝗘𝗥𝗜𝗙𝗜𝗘𝗗 𝗜𝗡 @SWAPPINGE_WIFE"
 
 @client.on(events.NewMessage(incoming=True))
 async def auto_proof_reply(event):
@@ -211,7 +269,7 @@ async def auto_proof_reply(event):
         proof_keywords = ["proof", "send proof", "proof?"]
 
         if any(word in msg for word in proof_keywords):
-            await event.reply(f"Here is the proof:\n{PROOF_LINK}")
+            await event.reply(f"{PROOF_LINK}")
 
 
 #-------
